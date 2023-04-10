@@ -1,21 +1,25 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Board from "./Board";
 import User from "./User";
 import Winner from "./Winner";
 
 const Game = () => {
+  const navigate = useNavigate();
   const [user, setUser] = useState("X");
   const [values, setValues] = useState(new Array(9));
   const [winner, setWinner] = useState("");
 
   const reset = () => {
     setWinner("");
-    setUser("");
+    setUser("X");
     setValues(new Array(9));
   };
+
   return (
-    <div>
-      <button onClick={reset}>clear</button>
+    <div className="root-container center-container column-container">
+      <button onClick={reset}>Clear</button>
+      <button onClick={() => navigate("/")}>Home</button>
       <Winner
         user={user}
         values={values}

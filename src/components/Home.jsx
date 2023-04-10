@@ -10,8 +10,8 @@ const Home = ({ setGameType }) => {
   };
 
   return (
-    <div className="App">
-      <div className="container">
+    <div className="root-container center-container">
+      <div className="column-container">
         <button onClick={() => handleGamePage("2-user")}>2 User</button>
         <button onClick={() => handleGamePage("computer")}>
           Play with computer

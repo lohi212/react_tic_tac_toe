@@ -1,11 +1,15 @@
-.App {
-  height: 90vh;
+.center-container {
+  
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.container {
+.root-container {
+  height: 90vh;
+}
+
+.column-container {
   display: flex;
   flex-direction: column;
   gap: 20px;

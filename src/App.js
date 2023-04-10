@@ -1,13 +1,8 @@
-import logo from "./logo.svg";
-import "./App.css";
-import Winner from "./components/Winner";
-import { useEffect, useState } from "react";
-import User from "./components/User";
-import Board from "./components/Board";
-import { winnerPossibilities } from "./utils";
+import { useState } from "react";
 import Game from "./components/Game";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./components/Home";
+import "./App.css";
 
 function App() {
   const [gameType, setGameType] = useState("");
