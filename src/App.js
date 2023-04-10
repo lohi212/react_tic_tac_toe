@@ -5,37 +5,20 @@ import { useEffect, useState } from "react";
 import User from "./components/User";
 import Board from "./components/Board";
 import { winnerPossibilities } from "./utils";
+import Game from "./components/Game";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Home from "./components/Home";
 
 function App() {
-  const [user, setUser] = useState("X");
-  const [values, setValues] = useState(new Array(9));
-  const [winner, setWinner] = useState("");
+  const [gameType, setGameType] = useState("");
 
-  const reset = () => {
-    setWinner("");
-    setUser("");
-    setValues(new Array(9));
-  };
   return (
-    <div className="App">
-      <div className="container">
-        <button onClick={reset}>clear</button>
-        <Winner
-          user={user}
-          values={values}
-          setWinner={setWinner}
-          winner={winner}
-        />
-        <User user={user} />
-        <Board
-          setValues={setValues}
-          values={values}
-          user={user}
-          setUser={setUser}
-          winner={winner}
-        />
-      </div>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/game" element={<Game gameType={gameType} />} />
+        <Route path="/" element={<Home setGameType={setGameType} />} />
+      </Routes>
+    </Router>
   );
 }
 
