@@ -14,6 +14,7 @@ function App() {
   return (
     <div className="App">
       <div className="container">
+        <button onClick={() => setValues(new Array(9))}>clear</button>
         <Winner
           user={user}
           values={values}
