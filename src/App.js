@@ -11,10 +11,15 @@ function App() {
   const [values, setValues] = useState(new Array(9));
   const [winner, setWinner] = useState("");
 
+  const reset = () => {
+    setWinner("");
+    setUser("");
+    setValues(new Array(9));
+  };
   return (
     <div className="App">
       <div className="container">
-        <button onClick={() => setValues(new Array(9))}>clear</button>
+        <button onClick={reset}>clear</button>
         <Winner
           user={user}
           values={values}
