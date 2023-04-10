@@ -1,23 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
+import Winner from "./components/Winner";
+import { useEffect, useState } from "react";
+import User from "./components/User";
+import Board from "./components/Board";
+import { winnerPossibilities } from "./utils";
 
 function App() {
+  const [user, setUser] = useState("X");
+  const [values, setValues] = useState(new Array(9));
+  const [winner, setWinner] = useState("");
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className="container">
+        <Winner
+          user={user}
+          values={values}
+          setWinner={setWinner}
+          winner={winner}
+        />
+        <User user={user} />
+        <Board
+          setValues={setValues}
+          values={values}
+          user={user}
+          setUser={setUser}
+          winner={winner}
+        />
+      </div>
     </div>
   );
 }
