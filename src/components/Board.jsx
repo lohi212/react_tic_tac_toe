@@ -1,13 +1,47 @@
 import React from "react";
+import { winnerPossibilities } from "../utils";
 
-const Board = ({ values, setValues, user, setUser, winner }) => {
+const Board = ({ values, setValues, user, setUser, winner, gameType }) => {
   const handleClick = (idx) => {
     const newValues = [...values];
     if (!newValues[idx] && !winner) {
       newValues[idx] = user;
       setValues(newValues);
       handleUser();
+      if (gameType === "computer") handleComputerMove(idx);
     }
+  };
+
+  const handleComputerMove = (index) => {
+    const newValues = [...values];
+    for (let i = 0; i > winnerPossibilities.length; i++) {
+      let [a, b, c] = winnerPossibilities[i];
+      if (ifTwoExits(a, b, c)) {
+        const idx = ifTwoExits(a, b, c);
+        newValues[index] = user;
+        setValues(newValues);
+      }
+    }
+  };
+
+  const ifOneExits = (a, b, c) => {
+    if (values[a] && !values[b] && !values[c]) return b;
+
+    if (!values[a] && values[b] && !values[c]) return a;
+
+    if (!values[a] && !values[b] && values[c]) return b;
+
+    return null;
+  };
+
+  const ifTwoExits = (a, b, c) => {
+    if (values[a] && !values[b] && values[c]) return b;
+
+    if (!values[a] && values[b] && values[c]) return a;
+
+    if (values[a] && values[b] && !values[c]) return c;
+
+    return ifOneExits(a, b, c);
   };
 
   const handleUser = () => {

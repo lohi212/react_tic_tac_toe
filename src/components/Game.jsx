@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { GameTypeContextProvider } from "../App";
 import Board from "./Board";
 import User from "./User";
 import Winner from "./Winner";
 
 const Game = () => {
   const navigate = useNavigate();
+  const gameType = useContext(GameTypeContextProvider);
   const [user, setUser] = useState("X");
   const [values, setValues] = useState(new Array(9));
   const [winner, setWinner] = useState("");
@@ -33,6 +35,7 @@ const Game = () => {
         user={user}
         setUser={setUser}
         winner={winner}
+        gameType={gameType}
       />
     </div>
   );
