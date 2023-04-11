@@ -7,41 +7,78 @@ const Board = ({ values, setValues, user, setUser, winner, gameType }) => {
     if (!newValues[idx] && !winner) {
       newValues[idx] = user;
       setValues(newValues);
-      handleUser();
-      if (gameType === "computer") handleComputerMove(idx);
+
+      if (gameType === "computer") handleComputerMove(idx, newValues);
+      else handleUser();
     }
   };
 
-  const handleComputerMove = (index) => {
-    const newValues = [...values];
-    for (let i = 0; i > winnerPossibilities.length; i++) {
+  const handleComputerMove = (index, newValues) => {
+    for (let i = 0; i < winnerPossibilities.length; i++) {
       let [a, b, c] = winnerPossibilities[i];
-      if (ifTwoExits(a, b, c)) {
-        const idx = ifTwoExits(a, b, c);
-        newValues[index] = user;
-        setValues(newValues);
+
+      if (ifTwoExits(a, b, c, newValues)) {
+        const idx = ifTwoExits(a, b, c, newValues);
+
+        if (idx) {
+          newValues[idx] = "O";
+          setValues(newValues);
+          return;
+        }
+      }
+    }
+
+    for (let i = 0; i < winnerPossibilities.length; i++) {
+      let [a, b, c] = winnerPossibilities[i];
+
+      if (ifOneExits(a, b, c, newValues)) {
+        const idx = ifOneExits(a, b, c, newValues);
+
+        if (idx) {
+          newValues[idx] = "O";
+          setValues(newValues);
+          return;
+        }
       }
     }
   };
 
-  const ifOneExits = (a, b, c) => {
-    if (values[a] && !values[b] && !values[c]) return b;
+  const ifOneExits = (a, b, c, newValues) => {
+    if (newValues[a] && !newValues[b] && !newValues[c]) return b;
 
-    if (!values[a] && values[b] && !values[c]) return a;
+    if (!newValues[a] && newValues[b] && !newValues[c]) return a;
 
-    if (!values[a] && !values[b] && values[c]) return b;
+    if (!newValues[a] && !newValues[b] && newValues[c]) return b;
 
     return null;
   };
 
-  const ifTwoExits = (a, b, c) => {
-    if (values[a] && !values[b] && values[c]) return b;
+  const ifTwoExits = (a, b, c, newValues) => {
+    if (
+      newValues[a] &&
+      !newValues[b] &&
+      newValues[c] &&
+      newValues[a] === newValues[c]
+    )
+      return b;
 
-    if (!values[a] && values[b] && values[c]) return a;
+    if (
+      !newValues[a] &&
+      newValues[b] &&
+      newValues[c] &&
+      newValues[b] === newValues[c]
+    )
+      return a;
 
-    if (values[a] && values[b] && !values[c]) return c;
+    if (
+      newValues[a] &&
+      newValues[b] &&
+      !newValues[c] &&
+      newValues[a] === newValues[b]
+    )
+      return c;
 
-    return ifOneExits(a, b, c);
+    return null;
   };
 
   const handleUser = () => {
